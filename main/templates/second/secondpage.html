@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body class="body-container">
+    <nav class="navbar-container">
+        <!-- mainpage 링크 연결 -->
+        <a class="navbar-link" href="{% url 'mainpage' %}">DGU_likelion_14th</a>
+        <!-- secondpage 링크 연결 -->
+        <a class="navbar-link" href="{% url 'secondpage' %}">Second Page</a>
+    </nav>
+
+    <div class="page-container">
+        <p class="tag">LikeLion_14th_hw</p>
+        <h1 class="title">멋쟁이사자처럼 14기 hw Second page</h1>
+        <h6 class="welcome">-> 자기소개</h6>
+    </div>
+
+    <div class="section">
+        <div class="section-title">🦁 머쩅이 사자 은서의 자기소개 🦁</div>
+        <ul>
+            <li>이름 : {{info.name}}</li>
+            <li>나이 : {{info.age}}</li>
+            <li>번호 : {{info.number}}</li>
+            <li>좋아하는 색 : 푸른색</li>
+            <li>학과 : 공과대학 정보통신공학과</li>
+            <li>학번 : 2025111968</li>
+        </ul>
+    </div>
+</body>
+{% endblock %}
