@@ -14,4 +14,4 @@ def secondpage(request):
             'number' : '010-9158-3643'
         }
     }
-    return render(request, 'second/secondpage.html', context)
+    return render(request, 'main/secondpage.html', context)
