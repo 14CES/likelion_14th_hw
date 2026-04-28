@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="card-grid">
+    {% for post in post %}
+        <div class="card">
+            <div class="card-content">
+                <h2>{{ post.title }}</h2>
+                <div class="card-header">
+                    <p>{{ post.writer }}</p>
+                    <p>{{ post.pub_date }}</p>
+                </div>
+                <div class="divider"></div>
+                <p class="card-summary">{{ post.summary }}</p>
+            </div>
+
+            <div class="card-footer">
+                <div class="divider"></div>
+                <a href="{% url 'main:detail' post.id %}">자세히 보기</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

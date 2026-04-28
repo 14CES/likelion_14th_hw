@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="form-wrapper">
+    <form action="{% url 'main:update' post.id%}" method="POST">
+        {% csrf_token %}
+        <div class="form-title">블로그 글 수정</div>
+
+        <div class="form-group">
+            <label for="title">제목</label>
+            <input type="text" id="title" name="title" value="{{ post.title }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="content">내용</label>
+            <textarea id="content" name="content" required>{{ post.content }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="writer">작성자</label>
+            <input type="text" id="writer" name="writer" value="{{ post.writer }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pub_date">작성일</label>
+            <input type="date" id="pub_date" name="pub_date" value="{{ post.pub_date|date:'Y-m-d' }}" required>
+        </div>
+
+        <button type="submit">블로그 수정</button>
+    </form>
+</div>
+{% endblock %}
