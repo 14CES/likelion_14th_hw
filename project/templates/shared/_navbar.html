@@ -1,28 +1,20 @@
 {% load static %}
 
-<nav class="nav">
-    <div class="nav-item {% if request.resolver_match.url_name == 'mainpage' %}active{% endif %}">
+<nav class="navbar-container">
+        <!-- mainpage 링크 연결 -->
+        <a class="navbar-link" href="{% url 'main:mainpage' %}">DGU_likelion_14th</a>
+        <!-- secondpage 링크 연결 -->
+        <a class="navbar-link" href="{% url 'main:secondpage' %}">Second Page</a>
+
+            <div class="nav-item {% if request.resolver_match.url_name == 'mainpage' %}active{% endif %}">
         <a href="{% url 'main:mainpage' %}">
-            <div class="nav-icon">
-                <img src="{% static 'images/icon-food.png' %}" class="nav-icon-img">
-            </div>
             <span class="nav-label">홈</span>
         </a>
     </div>
 
-    <div class="nav-item {% if request.resolver_match.url_name == 'blogpage' %}active{% endif %}">
-        {#<a href="{% url 'main:blogpage' %}">#}
-            <div class="nav-icon">
-                <img src="{% static 'images/icon-book.png' %}" alt="게시판 아이콘" class="nav-icon-img">
-            </div>
+    <div class="nav-item {% if request.resolver_match.url_name == 'postpage' %}active{% endif %}">
+        {<a href="{% url 'main:postpage' %}">}
             <span class="nav-label">게시판</span>
         </a>
     </div>
-</nav>
-
-<nav class="navbar-container">
-        <!-- mainpage 링크 연결 -->
-        <a class="navbar-link" href="{% url 'mainpage' %}">DGU_likelion_14th</a>
-        <!-- secondpage 링크 연결 -->
-        <a class="navbar-link" href="{% url 'secondpage' %}">Second Page</a>
     </nav>
