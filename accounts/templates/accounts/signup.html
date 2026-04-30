@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="form-wrapper">
+        <form action="{% url 'accounts:signup' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-title">회원가입</div>
+
+            <div class="form-group">
+                <label for="username">아이디</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm">비밀번호 확인</label>
+                <input type="password" id="confirm" name="confirm" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nickname">닉네임</label>
+                <input type="text" id="nickname" name="nickname" required>
+            </div>
+
+            <div class="form-group">
+                <label for="major">전공</label>
+                <input type="text" id="major" name="major">
+            </div>
+
+            <div class="form-group">
+                <label for="phonenumber">전화번호</label>
+                <input type="text" id="phonenumber" name="phonenumber">
+            </div>
+
+
+            <div class="form-group">
+                <label for="profile_image">프로필 사진</label>
+                <input type="file" id="profile_image" name="profile_image" accept="image/*">
+            </div>
+
+            <button type="submit">회원가입</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="mypage-wrapper">
+
+    <!-- 프로필 카드 -->
+    <div class="profile-card">
+        <div class="profile-left">
+            {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="프로필 사진" class="profile-image">
+            {% else %}
+            <div class="profile-image profile-image-empty"></div>
+            {% endif %}
+        </div>
+        <div class="profile-info">
+            <h2>{{ profile.nickname }}</h2>
+            <p class="profile-email">{{ profile_user.username }}</p>
+            <div class="profile-meta">
+                <span>전공 {{ profile.major|default:"미입력" }}</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
