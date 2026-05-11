@@ -5,7 +5,7 @@
 <div class="form-wrapper">
     <form action="{% url 'main:update' post.id %}" method="POST">
         {% csrf_token %}
-        <div class="form-title">블로그 글 수정</div>
+        <div class="form-title">포스트 글 수정</div>
 
         <div class="form-group">
             <label for="title">제목</label>
@@ -27,7 +27,7 @@
             <input type="date" id="pub_date" name="pub_date" value="{{ post.pub_date|date:'Y-m-d' }}" required>
         </div>
 
-        <button type="submit">댓글 수정</button>
+        <button type="submit">게시물 수정</button>
     </form>
 </div>
 {% endblock %}

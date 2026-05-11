@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<div>
+    <h2>#{{ tag.name }}</h2>
+    <a href="{% url 'main:tag_list' %}">← 태그 목록으로</a>
+</div>
+<div class="card-grid">
+    {% for post in posts %}
+    <div class="card">
+        <div class="card-content">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.summary }}</p>
+            <a href="{% url 'main:detail' post.id %}">자세히 보기</a>
+        </div>
+        <div class="card-footer">
+            <div class="divider"></div>
+            <span>{{ post.writer.profile.nickname }}</span>
+        </div>
+    </div>
+    {% empty %}
+    <p>이 태그를 가진 게시글이 없습니다.</p>
+    {% endfor %}
+</div>
+{% endblock %}

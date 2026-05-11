@@ -18,6 +18,12 @@
         </a>
     </div>
 
+    <div class="nav-item {% if request.resolver_match.url_name == 'tag_list' or request.resolver_match.url_name == 'tag_blog_list' %}active{% endif %}">
+        <a class="nav-item" href="{% url 'main:tag_list' %}">
+            <span class="nav-label">태그</span>
+        </a>
+    </div>
+
     <div class="header-right">
         {% if user.is_authenticated %}
             {#                로그인 시 보이는 요소 => 로그아웃/마이페이지 버튼#}

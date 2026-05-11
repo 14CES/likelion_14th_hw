@@ -36,6 +36,8 @@ def create(request):
 
     new_post.save()
 
+    save_tags(new_post)
+
     return redirect('main:detail', new_post.id)
 
 def postpage(request):
@@ -71,7 +73,7 @@ def update(request, post_id):
     
     update_post = get_object_or_404(Post, pk=post_id)
     
-    if update_post.writer != request.user.username:
+    if update_post.writer != request.user:
         return redirect('main:detail', update_post.id)
     
     update_post.title = request.POST['title']
@@ -159,3 +161,13 @@ def save_tags(post):
     for t in tag_list:
         tag, boolean = Tag.objects.get_or_create(name=t)
         post.tags.add(tag)
+
+
+def tag_list(request):
+    tags = Tag.objects.all()
+    return render(request, 'main/tag_list.html',{'tags': tags})
+
+def tag_post_list(request, tag_id):
+    tag = get_object_or_404(Tag, pk=tag_id)
+    posts = tag.posts.all()
+    return render(request, 'main/tag_post_list.html', {'tag': tag, 'posts':posts})
