@@ -79,7 +79,10 @@ def update(request, post_id):
     update_post.pub_date= request.POST['pub_date']
     update_post.content= request.POST['content']
     update_post.number= request.POST.get('number', 0)
+    
     update_post.save()
+
+    save_tags(update_post)
 
     return redirect('main:detail', update_post.id)
 
@@ -142,3 +145,17 @@ def detail(request, post_id):
     
     comments = Comment.objects.filter (post=post)
     return render(request, 'main/detail.html',{'post':post, 'comments':comments})
+
+def save_tags(post):
+    words = post.content.split()
+    tag_list = []
+    for w in words:
+        if len(w) > 0:
+            if w[0] == '#':
+                tag_list.append(w[1:])
+
+    post.tags.clear()
+
+    for t in tag_list:
+        tag, boolean = Tag.objects.get_or_create(name=t)
+        post.tags.add(tag)
