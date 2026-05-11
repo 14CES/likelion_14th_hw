@@ -10,7 +10,7 @@
 
      <div class="detail-footer">
           <span>게시글 번호: {{ post.number }}</span>
-          <span>작성자: {{ post.writer }}</span>
+          <span>작성자: {{ post.writer.profile.nickname }}</span>
           <span>작성일: {{ post.pub_date }}</span>
      </div>
 
@@ -19,9 +19,45 @@
      </div>
 
      <div class="detail-actions">
-          {<a href="{% url 'main:edit' post.id %}" class="btn-outline">수정</a>}
-          {<a href="{% url 'main:delete' post.id %}" class="btn-danger">삭제</a>}
+          {% if post.writer == user %}
+               <a href="{% url 'main:edit' post.id %}" class="btn-outline">수정</a>
+               <a href="{% url 'main:delete' post.id %}" class="btn-danger">삭제</a>
+          {% endif %}
           <a href="{% url 'main:postpage' %}" class="btn-primary">목록으로</a>
+     </div>
+     <div class="comments_container">
+          <h3>댓글 {{ comments.count }}개</h3>
+          {% if user.is_authenticated %}
+          <div class="comments_form">
+               <form action="{% url 'main:detail' post.id %}" method="post">
+                    {% csrf_token %}
+                    <label for="content">댓글 내용</label>
+                    <div class="comment-input-row">
+                         <input type="text" id="content" name="content" placeholder="댓글을 입력하세요" required>
+                         <button type="submit">댓글 작성</button>
+                    </div>
+               </form>
+               </div>
+          {% endif %}
+          <div class="comments_list">
+               {% for comment in comments %}
+               <div class="comment-item">
+                    <div class="comment-meta">
+                         <span class="comment-author">{{ comment.writer.profile.nickname }}</span>
+                         <span class="comment-date">{{ comment.pub_date|date:"Y.m.d H:i" }}</span>
+                    </div>
+                    <p class="comment-content">{{ comment.content }}</p>
+               </div>
+               <div class="detail-actions">
+                    {% if comment.writer == user %}
+                    <a href="{% url 'main:edit_comment' comment.id %}" class="btn-outline">수정</a>
+                    <a href="{% url 'main:delete_comment' comment.id %}" class="btn-danger">삭제</a>
+                    {% endif %}
+               </div>
+               {% empty %}
+               <p class="comments-empty">아직 댓글이 없습니다. 첫 댓글을 남겨보세요!</p>
+               {% endfor %}
+          </div>
      </div>
 
 </div>
