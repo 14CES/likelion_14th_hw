@@ -13,12 +13,23 @@
 
      <div class="detail-footer">
           <span>게시글 번호: {{ post.number }}</span>
-          <span>작성자: {{ post.writer.profile.nickname }}</span>
+          <a href="{% url 'users:mypage' post.writer.id %}">작성자: {{ post.writer }}</a>
           <span>작성일: {{ post.pub_date }}</span>
      </div>
 
      <div class="detail-body">
           <p>{{ post.content }}</p>
+     </div>
+
+     <div class = "detail-likes">
+          <a href = "{% url 'main:likes' post.id %}">
+               {% if user in post.like.all %}
+                    취소
+               {% else %}
+                    좋아요
+               {% endif %}
+          </a>
+          <span>{{ post.like_count }}개</span>
      </div>
 
      <div class="detail-actions">
@@ -50,6 +61,16 @@
                          <span class="comment-date">{{ comment.pub_date|date:"Y.m.d H:i" }}</span>
                     </div>
                     <p class="comment-content">{{ comment.content }}</p>
+                    <div class = "detail-comment_likes">
+                         <a href = "{% url 'main:comment_likes' comment.id %}">
+                              {% if user in comment.comment_like.all %}
+                                   취소
+                              {% else %}
+                                   좋아요
+                              {% endif %}
+                         </a>
+                         <span>{{ comment.comment_like_count }}개</span>
+                    </div>
                </div>
                <div class="detail-actions">
                     {% if comment.writer == user %}

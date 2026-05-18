@@ -171,3 +171,33 @@ def tag_post_list(request, tag_id):
     tag = get_object_or_404(Tag, pk=tag_id)
     posts = tag.posts.all()
     return render(request, 'main/tag_post_list.html', {'tag': tag, 'posts':posts})
+
+def likes(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+
+    if request.user in post.like.all():
+        post.like.remove(request.user)
+        post.like_count -= 1
+        post.save()
+
+    else:
+        post.like.add(request.user)
+        post.like_count += 1
+        post.save()
+
+    return redirect('main:detail', post.id)
+
+def comment_likes(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+
+    if request.user in comment.comment_like.all():
+        comment.comment_like.remove(request.user)
+        comment.comment_like_count -= 1
+        comment.save()
+
+    else:
+        comment.comment_like.add(request.user)
+        comment.comment_like_count += 1
+        comment.save()
+
+    return redirect('main:detail', comment.post.id)

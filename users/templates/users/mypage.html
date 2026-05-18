@@ -23,6 +23,25 @@
             <div class="profile-phonenumber">
                 <span>전화번호 {{ profile.phonenumber|default:"미입력" }}</span>
             </div>
+
+            <div class="follow-stats"> 
+                <p>팔로워 {{ profile.followers.count }}명</p>
+                <p>팔로잉 {{ profile.followings.count }}명</p>
+            </div>
+
+            {% if request.user != profile_user %}
+                <div class="follow-btn">
+                    {% if request.user.profile in profile.followers.all %}
+                        <a href="{% url 'users:follow' profile_user.id %}">
+                            <button type="button">언팔로우</button>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'users:follow' profile_user.id %}">
+                            <button type="button">팔로우</button>
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
         </div>
     </div>
 

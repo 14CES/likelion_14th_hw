@@ -18,4 +18,6 @@ urlpatterns=[
     path('delete_comment/<int:comment_id>', delete_comment, name='delete_comment'),
     path('tags', tag_list, name='tag_list'),
     path('tags/<int:tag_id>', tag_post_list, name='tag_post_list'),
+    path('likes/<int:post_id>', likes, name='likes'),
+    path('comment_likes/<int:comment_id>', comment_likes, name='comment_likes'),
 ]

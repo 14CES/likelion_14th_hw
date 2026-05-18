@@ -31,26 +31,33 @@ def signup(request):
             return render(request, 'accounts/signup.html', {'error' : '이미 존재하는 아이디입니다.'})
         
         if request.POST['password'] == request.POST['confirm']:
-            newuser = User.objects.create_user(
+            new_user = User.objects.create_user(
                 username=request.POST['username'],
                 password=request.POST['password'],
             )
 
-            nickname=request.POST['nickname']
-            major=request.POST['major']
-            profile_image=request.FILES.get('profile_image')
-            phonenumber=request.POST['phonenumber']
+            #nickname=request.POST['nickname']
+            #major=request.POST['major']
+            #profile_image=request.FILES.get('profile_image')
+            #phonenumber=request.POST['phonenumber']
 
-            profile = Profile(
-                user=newuser,
-                nickname=nickname,
-                major=major,
-                profile_image=profile_image,
-                phonenumber=phonenumber,
-            )
+            #profile = Profile(
+            #    user=newuser,
+            #    nickname=nickname,
+            #    major=major,
+            #    profile_image=profile_image,
+            #     phonenumber=phonenumber,
+            # )
+            # profile.save()
+            profile = new_user.profile
+            profile.nickname = request.POST['nickname']
+            profile.major = request.POST['major']
+            profile.phonenumber = request.POST.get('phonenumber', '')
+            profile.profile_image = request.FILES.get('profile_image')
             profile.save()
 
-            auth.login(request, newuser)
+
+            auth.login(request, new_user)
             return redirect('main:postpage')
         
     return render(request, 'accounts/signup.html')

@@ -13,7 +13,7 @@
     </div>
 
     <div class="nav-item {% if request.resolver_match.url_name == 'postpage' %}active{% endif %}">
-        {<a href="{% url 'main:postpage' %}">}
+        <a href="{% url 'main:postpage' %}">
             <span class="nav-label">게시판</span>
         </a>
     </div>
